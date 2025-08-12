@@ -39,14 +39,219 @@
 ### Low level designed
 
 - Enhanced component tree with more fine-grained components and well-defined state shapes and component contracts
+
+```mermaid
+graph TD
+    A[App Component] --> B[Header Component]
+    A --> C[Main Container]
+    A --> D[Footer Component]
+    
+    C --> E[Sidebar Component]
+    C --> F[Content Area]
+    
+    E --> G[Navigation Menu]
+    E --> H[User Profile Widget]
+    
+    F --> I[Data Table Component]
+    F --> J[Action Panel]
+    
+    I --> K[Table Header]
+    I --> L[Table Body]
+    I --> M[Pagination]
+    
+    J --> N[Create Button]
+    J --> O[Filter Controls]
+    J --> P[Export Options]
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style F fill:#e8f5e8
+```
+
 - If your app requires complex API orchestration, you may benefit from having a detailed flow diagram to highlight the order of API execution and when to update components with new state
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI as UI Component
+    participant Store as State Store
+    participant API as API Service
+    participant Cache
+    
+    User->>UI: Initiates action
+    UI->>Store: Dispatch loading state
+    Store->>UI: Update with loading indicator
+    
+    UI->>Cache: Check for cached data
+    alt Cache hit
+        Cache->>UI: Return cached data
+        UI->>Store: Update with cached data
+    else Cache miss
+        UI->>API: Fetch user data
+        API->>UI: Return user response
+        UI->>Cache: Store data in cache
+        
+        UI->>API: Fetch user permissions
+        API->>UI: Return permissions response
+        
+        UI->>API: Fetch user preferences
+        API->>UI: Return preferences response
+        
+        UI->>Store: Update with complete data
+    end
+    
+    Store->>UI: Render final state
+    UI->>User: Display updated interface
+```
+
 - Error handling for special use cases
+
+```mermaid
+flowchart TD
+    A[User Action] --> B{Validate Input}
+    B -->|Valid| C[Process Request]
+    B -->|Invalid| D[Show Validation Error]
+    
+    C --> E{API Call}
+    E -->|Success| F[Update State]
+    E -->|Network Error| G[Show Network Error]
+    E -->|Auth Error| H[Redirect to Login]
+    E -->|Server Error| I[Show Generic Error]
+    
+    F --> J[Render Success State]
+    
+    G --> K[Retry Option]
+    I --> L[Error Recovery Options]
+    
+    K --> C
+    L --> M[Contact Support]
+    L --> N[Refresh Page]
+    
+    style D fill:#ffebee
+    style G fill:#ffebee
+    style H fill:#fff3e0
+    style I fill:#ffebee
+```
+
 - Performance concerns, such as caching and network optimization
+
+```mermaid
+graph TB
+    subgraph "Performance Optimization"
+        A[Browser Cache] --> B[Service Worker Cache]
+        B --> C[Memory Cache]
+        C --> D[API Response]
+        
+        E[Code Splitting] --> F[Lazy Loading]
+        F --> G[Component Bundling]
+        
+        H[Image Optimization] --> I[WebP Format]
+        H --> J[Responsive Images]
+        H --> K[Image Lazy Loading]
+        
+        L[Network Optimization] --> M[HTTP/2]
+        L --> N[Compression]
+        L --> O[CDN Distribution]
+    end
+    
+    style A fill:#e3f2fd
+    style E fill:#f1f8e9
+    style H fill:#fef7ff
+    style L fill:#fff8e1
+```
+
 - Security concerns, such as permission schemas to be publicly shared, storing sensitive information in the local storage/IndexDB, CSRF protection, CSP headers
+
+```mermaid
+flowchart LR
+    subgraph "Security Layers"
+        A[User Authentication] --> B[Permission Validation]
+        B --> C[CSRF Protection]
+        C --> D[Data Encryption]
+        
+        E[CSP Headers] --> F[XSS Prevention]
+        F --> G[Content Validation]
+        
+        H[Secure Storage] --> I[Token Management]
+        I --> J[Session Handling]
+    end
+    
+    subgraph "Data Flow Security"
+        K[Client Request] --> L{Auth Check}
+        L -->|Valid| M[Permission Check]
+        L -->|Invalid| N[Block Request]
+        
+        M --> O{Resource Access}
+        O -->|Allowed| P[Proceed]
+        O -->|Denied| Q[Access Denied]
+    end
+    
+    style A fill:#e8f5e8
+    style E fill:#e3f2fd
+    style H fill:#fef7ff
+    style N fill:#ffebee
+    style Q fill:#ffebee
+```
+
 - Alternative design considerations
 - Technologies and tools to be used
 - Test scenarios (usually speaking about E2E tests here)
+
+```mermaid
+graph TD
+    subgraph "E2E Test Scenarios"
+        A[User Registration] --> B[Email Verification]
+        B --> C[Profile Setup]
+        C --> D[Dashboard Access]
+        
+        E[Login Flow] --> F[Two-Factor Auth]
+        F --> G[Dashboard Navigation]
+        
+        H[Data CRUD Operations] --> I[Create Record]
+        H --> J[Read/Search Records]
+        H --> K[Update Record]
+        H --> L[Delete Record]
+        
+        M[Error Scenarios] --> N[Network Failure]
+        M --> O[Invalid Data]
+        M --> P[Permission Errors]
+        
+        Q[Performance Tests] --> R[Page Load Time]
+        Q --> S[API Response Time]
+        Q --> T[Memory Usage]
+    end
+    
+    style A fill:#e8f5e8
+    style E fill:#e3f2fd
+    style H fill:#fff8e1
+    style M fill:#ffebee
+    style Q fill:#f3e5f5
+```
+
 - Accurate estimates of work and level of parallelization
+
+```mermaid
+gantt
+    title Frontend Development Timeline
+    dateFormat  YYYY-MM-DD
+    section Setup Phase
+    Environment Setup    :setup, 2024-01-01, 3d
+    Architecture Design  :arch, after setup, 5d
+    
+    section Development
+    Component Library    :comp, 2024-01-09, 10d
+    API Integration     :api, after arch, 8d
+    State Management    :state, after comp, 6d
+    
+    section Testing
+    Unit Tests          :unit, after comp, 5d
+    Integration Tests   :integration, after api, 7d
+    E2E Tests          :e2e, after state, 5d
+    
+    section Deployment
+    Build Optimization  :build, after e2e, 3d
+    Production Deploy   :deploy, after build, 2d
+```
 
 ### Risk Considerations
 
