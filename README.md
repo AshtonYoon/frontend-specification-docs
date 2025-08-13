@@ -2,6 +2,9 @@
 | ------------- | ----------- |
 | Created       | Jan 1, 1970 |
 | Last modified | Jan 1, 1970 |
+| Status        | In Progress |
+| Team/Owner    | Development Team |
+| Repository    | https://github.com/username/repo |
 
 ### Technical vision
 
