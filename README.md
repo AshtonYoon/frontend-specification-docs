@@ -9,7 +9,15 @@
 ### Technical vision
 
 - the main goal of this project.
-- Set of guidelines and principles for the team or entire organization (e.g., testing best practices, Redux shape vision, applying feature-sliced design, etc)
+- Set of guidelines and principles for the team or entire organization:
+  - **Testing Standards**: Unit test coverage minimum 80%, integration tests for critical user flows, E2E tests for main business scenarios, performance testing for pages with >10k users
+  - **Code Architecture**: Feature-Sliced Design methodology for large applications, component composition over inheritance, dependency injection for testability
+  - **State Management**: Redux toolkit for global state with clear domain boundaries, local state for UI-only concerns, immutable updates, normalized data structures
+  - **Development Practices**: Code reviews mandatory, pair programming for complex features, trunk-based development with feature flags
+  - **API Design**: RESTful conventions, consistent error handling, pagination for list endpoints, versioning strategy
+  - **Security**: Authentication tokens in httpOnly cookies, input validation on both client/server, HTTPS everywhere, CSP headers
+  - **Performance**: Bundle size <500KB initial load, lazy loading for non-critical routes, image optimization, caching strategy
+  - **Accessibility**: WCAG 2.1 AA compliance, keyboard navigation, screen reader support, semantic HTML
 - Summary of decisions being made
 - Definition of the processes (e.g., on-call rotations, addressing technical debt, etc)
 
